@@ -1,4 +1,6 @@
 require "gosu"
+require_relative "puck"
+
 
 class Player
 	def initialize(color, player)
@@ -14,6 +16,7 @@ class Player
 		elsif player == 2
 			@x_pos = 1520
 		end
+		
 	
 	end
 
@@ -42,9 +45,12 @@ class Player
 		end
 	end
 
-	def pulse
-		@puck.pulse
-		
+	def x
+		@x_pos
+
+	end
+	def y
+		@y_pos
 	end
 
 	def move

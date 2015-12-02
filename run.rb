@@ -21,21 +21,34 @@ class GameWindow < Gosu::Window
 		@player2.right if Gosu::button_down? Gosu::KbRight
 		@player2.up if Gosu::button_down? Gosu::KbUp
 		@player2.down if Gosu::button_down? Gosu::KbDown
-		@player2.pulse if Gosu::button_down? Gosu::Kb1
+		pulse(@player2.x, @player2.y) if Gosu::button_down? Gosu::Kb1
 		@player2.move
 
 		@player1.left if Gosu::button_down? Gosu::KbA
 		@player1.right if Gosu::button_down? Gosu::KbD
 		@player1.up if Gosu::button_down? Gosu::KbW
 		@player1.down if Gosu::button_down? Gosu::KbS
-		@player1.pulse if Gosu::button_down? Gosu::KbC
+		pulse(@player1.x, @player1.y) if Gosu::button_down? Gosu::KbC
 		@player1.move
+
+		@colliding?(@player1.x, @player1.y)
+		@colliding?(@player2.x, @player2.y)
+		@puck.move
+	end
+
+	def pulse(x, y)
+		@puck.pulse(x, y)
+	end
+
+	def collidiing?(x, y)
+		@puck.colliding?(x, y)
 	end
 
 	def draw
 		@player1.draw
 		@player2.draw
 		@puck.draw
+		
 		@background_image.draw(0, 0, 0)
 	end
 
