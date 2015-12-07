@@ -56,7 +56,38 @@ class Player
 	def move
 		@x_pos += @x_vel
 		@y_pos += @y_vel
+		#board limits
+		if @x_pos > @width - 50
+			@x_vel = -1 * @x_vel
+			@x_pos = @width - 50
+		end		
 
+		if @y_pos > @height - 50
+			@y_vel = -1 * @y_vel
+			@y_pos = @height - 50
+		end		
+
+		if @x_pos < 0 - 50
+			@x_vel = -1 * @x_vel
+			@x_pos = -50
+		end		
+
+		if @y_pos < 0 - 50
+			@y_vel = -1 * @y_vel
+			@y_pos = -50
+		end	
+
+		#left goal limits
+		if @y_pos > @height/2 - 100 && @x_pos 
+			@y_vel = -1 * @y_vel
+			@y_pos = @height - 50
+		end		
+		if @y_pos < 0 - 50
+			@y_vel = -1 * @y_vel
+			@y_pos = -50
+		end	
+
+		#right goal limits
 		if @x_pos > @width - 50
 			@x_vel = -1 * @x_vel
 			@x_pos = @width - 50

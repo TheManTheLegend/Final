@@ -1,4 +1,5 @@
 require "gosu"
+require_relative "player"
 
 class Puck
 	def initialize
@@ -11,7 +12,8 @@ class Puck
 		@y_vel = 0
 		@x_prop = 0
 		@y_prop = 0
-		@pulsed = false
+		@stuck = false
+		@pulsed = 1
 		
 
 		@image = Gosu::Image.new("puck.png")
@@ -19,45 +21,23 @@ class Puck
 	end
 
 	def colliding?(x, y)
-		if (@x_pos - (x + 50)).abs < 85 && (@y_pos - (y + 50)).abs < 85 &&
-			# (@x_pos - (x + 50)).abs > 75 && (@y_pos - (y + 50)).abs > 75
+		if (@x_pos - x).abs > 75 || (@y_pos - y).abs > 75
+			@pulsed = 1
+		end
+
+
+
+		if (@x_pos - x).abs < 75 && (@y_pos - y).abs < 75
+
 			proportion(x, y)
-			if @pulsed == false
-				if @x_pos > x - 50
-					@x_vel = 30 * (0 - @x_prop)
-				elsif @x_pos < x + 50
-					@x_vel = 30 * (0 - @x_prop)
-				end
 
-				if @y_pos > y - 50
-					@y_vel = 30 * (0 - @y_prop)
-				elsif @y_pos < y + 50
-					@y_vel = 30 * (0 - @y_prop)
-				end
-			end
 
-			# if @x_pos + @y_pos - x - y < 50
-			# 	@x_pos = @width - 50
-			# end		
+			@x_vel = 30 * (0 - @x_prop) * @pulsed
+			@y_vel = 30 * (0 - @y_prop) * @pulsed
 
-			# if @y_pos > @height - 50
-			# 	@y_pos = @height - 50
-			# end		
-
-			# if @x_pos < 0 - 50
-			# 	@x_pos = -50
-			# end		
-
-			# if @y_pos < 0 - 50
-			# 	@y_pos = -50
-			# end
-			stick
+			stick(x, y)
 		end
 	end
-	def stick
-		
-	end
-
 
 	def move
 		@x_pos += @x_vel
@@ -83,8 +63,17 @@ class Puck
 			@y_pos = -50
 		end	
 
+
+
+		
+
 		@x_vel *= 0.97
 		@y_vel *= 0.97
+	end
+
+	def stick(x, y)
+		
+
 	end
 	def proportion(x, y)
 		relative_x = @x_pos - x + 50
@@ -98,15 +87,15 @@ class Puck
 		@image.draw(@x_pos, @y_pos, 3)
 	end
 	def pulse(x, y)
-		pulsed = true
-		if (@x_pos - x).abs < 75 && (@y_pos - y).abs < 75
+		if (@x_pos - x).abs < 75 || (@y_pos - y).abs < 75
 			proportion(x, y)
+			@pulsed = (0-1)
 
 			@x_vel = 40 * @x_prop
 			@y_vel = 40 * @y_prop
-		end
-
+			
 		
+		end
 	end
 
 

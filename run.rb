@@ -1,6 +1,7 @@
 require "gosu"
 require_relative "player"
 require_relative "puck"
+require_relative "goal"
 
 
 
@@ -10,6 +11,8 @@ class GameWindow < Gosu::Window
 		@player1 = Player.new("white",1)
 		@player2 = Player.new("black",2)
 		@puck = Puck.new
+		@goal1 = Goal.new(0, 0)
+		@goal2 = Goal.new(1920, 180)
 
 		@background_image = Gosu::Image.new("gameboard.png", :tileable => true)
 
@@ -48,6 +51,8 @@ class GameWindow < Gosu::Window
 		@player1.draw
 		@player2.draw
 		@puck.draw
+		@goal1.draw
+		@goal2.draw
 		
 		@background_image.draw(0, 0, 0)
 	end
