@@ -57,22 +57,25 @@ class Player
 		@x_pos += @x_vel
 		@y_pos += @y_vel
 
-		# @x_pos %= 1920
-		# @y_pos %= 1080
-
 		if @x_pos > @width - 50
-			@x_vel = -@x_vel - 20
-		
-		elsif @x_pos < 0 - 50
-			@x_vel = -@x_vel + 20
-		end
+			@x_vel = -1 * @x_vel
+			@x_pos = @width - 50
+		end		
 
 		if @y_pos > @height - 50
-			@y_vel = -@y_vel - 20
+			@y_vel = -1 * @y_vel
+			@y_pos = @height - 50
+		end		
 
-		elsif @y_pos < 0 - 50
-			@y_vel = -@y_vel + 20
-		end
+		if @x_pos < 0 - 50
+			@x_vel = -1 * @x_vel
+			@x_pos = -50
+		end		
+
+		if @y_pos < 0 - 50
+			@y_vel = -1 * @y_vel
+			@y_pos = -50
+		end	
 		
 		
 

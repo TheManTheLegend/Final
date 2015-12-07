@@ -31,8 +31,8 @@ class GameWindow < Gosu::Window
 		pulse(@player1.x, @player1.y) if Gosu::button_down? Gosu::KbC
 		@player1.move
 
-		@colliding?(@player1.x, @player1.y)
-		@colliding?(@player2.x, @player2.y)
+		colliding?(@player1.x, @player1.y)
+		colliding?(@player2.x, @player2.y)
 		@puck.move
 	end
 
@@ -40,7 +40,7 @@ class GameWindow < Gosu::Window
 		@puck.pulse(x, y)
 	end
 
-	def collidiing?(x, y)
+	def colliding?(x, y)
 		@puck.colliding?(x, y)
 	end
 
