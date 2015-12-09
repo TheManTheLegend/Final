@@ -38,6 +38,16 @@ class Puck
 			stick(x, y)
 		end
 	end
+	def puck_x
+		@x_pos
+	end
+	def puck_y
+		@y_pos
+	end
+
+
+
+
 
 	def move
 		@x_pos += @x_vel

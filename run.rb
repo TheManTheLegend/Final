@@ -5,6 +5,7 @@ require_relative "goal"
 
 
 
+
 class GameWindow < Gosu::Window
 	def initialize 
 		super 1920, 1080
@@ -13,7 +14,7 @@ class GameWindow < Gosu::Window
 		@puck = Puck.new
 		@goal1 = Goal.new(0, 0)
 		@goal2 = Goal.new(1920, 180)
-
+		
 		@background_image = Gosu::Image.new("gameboard.png", :tileable => true)
 
 	end
@@ -24,7 +25,7 @@ class GameWindow < Gosu::Window
 		@player2.right if Gosu::button_down? Gosu::KbRight
 		@player2.up if Gosu::button_down? Gosu::KbUp
 		@player2.down if Gosu::button_down? Gosu::KbDown
-		pulse(@player2.x, @player2.y) if Gosu::button_down? Gosu::Kb1
+		pulse(@player2.x, @player2.y) if Gosu::button_down? Gosu::KbFnEnd
 		@player2.move
 
 		@player1.left if Gosu::button_down? Gosu::KbA
@@ -37,6 +38,12 @@ class GameWindow < Gosu::Window
 		colliding?(@player1.x, @player1.y)
 		colliding?(@player2.x, @player2.y)
 		@puck.move
+		if @puck.puck_x < 100 && @puck.puck_y < 640 && @puck.puck_y > 440
+			@player2.score
+		elsif @puck.puck_x > 1820 && @puck.puck_y < 640 && @puck.puck_y > 440
+			@player1.score
+		end
+		
 	end
 
 	def pulse(x, y)
@@ -45,6 +52,13 @@ class GameWindow < Gosu::Window
 
 	def colliding?(x, y)
 		@puck.colliding?(x, y)
+	end
+	def score
+		if @puck.puck_x < 100 && @puck.puck_y > 640 && @puck.puck_y < 440
+			@player1.score
+		elsif @puck.puck_x > 980 && @puck.puck_y > 640 && @puck.puck_y < 440
+			@player2.score
+		end
 	end
 
 	def draw

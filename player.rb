@@ -2,6 +2,8 @@ require "gosu"
 require_relative "puck"
 
 
+
+
 class Player
 	def initialize(color, player)
 		@image = Gosu::Image.new("#{color}.png")
@@ -13,12 +15,22 @@ class Player
 		@y_pos = (@height / 2) - 50
 		if player == 1
 			@x_pos = 400
+			@derp = 10
 		elsif player == 2
 			@x_pos = 1520
+			@derp = 980
 		end
+		@player = player
+		@score = 0
+		@font = Gosu::Font.new(30)
 		
 	
 	end
+
+	def score
+		@score += 1
+	end
+
 
 
 	def up
@@ -44,6 +56,8 @@ class Player
 			@x_vel += @acceleration
 		end
 	end
+
+	
 
 	def x
 		@x_pos
@@ -78,35 +92,48 @@ class Player
 		end	
 
 		#left goal limits
-		if @y_pos > @height/2 - 100 && @x_pos 
-			@y_vel = -1 * @y_vel
-			@y_pos = @height - 50
-		end		
-		if @y_pos < 0 - 50
-			@y_vel = -1 * @y_vel
-			@y_pos = -50
-		end	
+		# if  @x_pos < 100
+		# 	if @y_pos < @height/2 - 100 && @y_pos < @height/2 + 100
+		# 		@y_pos = @height/ 2 - 100
+		# 		@y_vel = -1 * @y_vel
+		# 	elsif @y_pos > @height/2 + 100 && @y_pos > @height/2 - 100
+		# 		@y_pos = @height/ 2 + 150
+		# 		@y_vel = -1 * @y_vel
+		# 	elsif @y_pos > @height/2 - 100 && @y_pos < @height/2 + 100
+		# 		@x_pos = 100
+		# 		@x_vel = -1 * @x_vel
+		# 	end
+		# end	
+
+		# if @y_pos > @height/2 - 100 && @x_pos < 100
+		# 	@y_vel = -1 * @y_vel
+		# 	@y_pos = @height/ 2 - 100
+		# end			
+		# if @y_pos < 0 - 50
+		# 	@y_vel = -1 * @y_vel
+		# 	@y_pos = -50
+		# end	
 
 		#right goal limits
-		if @x_pos > @width - 50
-			@x_vel = -1 * @x_vel
-			@x_pos = @width - 50
-		end		
+		# if @x_pos > @width - 50
+		# 	@x_vel = -1 * @x_vel
+		# 	@x_pos = @width - 50
+		# end		
 
-		if @y_pos > @height - 50
-			@y_vel = -1 * @y_vel
-			@y_pos = @height - 50
-		end		
+		# if @y_pos > @height - 50
+		# 	@y_vel = -1 * @y_vel
+		# 	@y_pos = @height - 50
+		# end		
 
-		if @x_pos < 0 - 50
-			@x_vel = -1 * @x_vel
-			@x_pos = -50
-		end		
+		# if @x_pos < 0 - 50
+		# 	@x_vel = -1 * @x_vel
+		# 	@x_pos = -50
+		# end		
 
-		if @y_pos < 0 - 50
-			@y_vel = -1 * @y_vel
-			@y_pos = -50
-		end	
+		# if @y_pos < 0 - 50
+		# 	@y_vel = -1 * @y_vel
+		# 	@y_pos = -50
+		# end	
 		
 		
 
@@ -117,6 +144,7 @@ class Player
 
 	def draw
 		@image.draw(@x_pos, @y_pos, 3)
+		@font.draw("Player #{@player}: #{@score}", @derp, 30, 5, 1, 1, 0xff_0000ff)
 	end
 end
 
