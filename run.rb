@@ -14,6 +14,8 @@ class GameWindow < Gosu::Window
 		@puck = Puck.new
 		@goal1 = Goal.new(0, 0)
 		@goal2 = Goal.new(1920, 180)
+		@font = Gosu::Font.new(80)
+		@scored = 0
 		
 		@background_image = Gosu::Image.new("gameboard.png", :tileable => true)
 
@@ -25,7 +27,7 @@ class GameWindow < Gosu::Window
 		@player2.right if Gosu::button_down? Gosu::KbRight
 		@player2.up if Gosu::button_down? Gosu::KbUp
 		@player2.down if Gosu::button_down? Gosu::KbDown
-		pulse(@player2.x, @player2.y) if Gosu::button_down? Gosu::KbFnEnd
+		pulse(@player2.x, @player2.y) if Gosu::button_down? Gosu::KbNumpad1
 		@player2.move
 
 		@player1.left if Gosu::button_down? Gosu::KbA
@@ -38,27 +40,45 @@ class GameWindow < Gosu::Window
 		colliding?(@player1.x, @player1.y)
 		colliding?(@player2.x, @player2.y)
 		@puck.move
-		if @puck.puck_x < 100 && @puck.puck_y < 640 && @puck.puck_y > 440
+		if @puck.puck_x < 50 && @puck.puck_y < 640 && @puck.puck_y > 440
 			@player2.score
+			@scored = 
+			
+			reset
 		elsif @puck.puck_x > 1820 && @puck.puck_y < 640 && @puck.puck_y > 440
 			@player1.score
+			@scored = 1
+			
+			reset
 		end
 		
+	end
+	def score(x)
+		@font.draw("Player #{x} has scored!", 200, 30, 6, 1, 1, 0xff_0000ff)
+		sleep(1)
 	end
 
 	def pulse(x, y)
 		@puck.pulse(x, y)
 	end
+	def reset
+
+		@player1.reset
+		@player2.reset
+		@puck.reset
+		
+	end
+	def start
+		@font.draw("3", 500, 100, 5, 1, 1, 0xff_ff0000)
+		sleep(1)
+		@font.draw("2", 500, 100, 5, 1, 1, 0xff_ffff00)
+		sleep(1)
+		@font.draw("1", 500, 100, 5, 1, 1, 0xff_00ff00)
+		sleep
+	end
 
 	def colliding?(x, y)
 		@puck.colliding?(x, y)
-	end
-	def score
-		if @puck.puck_x < 100 && @puck.puck_y > 640 && @puck.puck_y < 440
-			@player1.score
-		elsif @puck.puck_x > 980 && @puck.puck_y > 640 && @puck.puck_y < 440
-			@player2.score
-		end
 	end
 
 	def draw
@@ -67,7 +87,18 @@ class GameWindow < Gosu::Window
 		@puck.draw
 		@goal1.draw
 		@goal2.draw
-		
+		if @scored == 1
+			@font.draw("Player 1 has scored!", 200, 30, 6, 1, 1, 0xff_0000ff)
+			sleep(1)
+			start
+			@scored = 0
+		end
+		# if @scored == 2
+		# 	@font.draw("Player #{@scored} has scored!", 200, 30, 6, 1, 1, 0xff_0000ff)
+		# 	sleep(1)
+		# 	start
+		# 	@scored = 0
+		# end
 		@background_image.draw(0, 0, 0)
 	end
 

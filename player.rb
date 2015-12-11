@@ -13,11 +13,14 @@ class Player
 		@height = 1080
 		@width = 1920
 		@y_pos = (@height / 2) - 50
+		@y_start = (@height / 2) - 50
 		if player == 1
 			@x_pos = 400
+			@x_start = 400
 			@derp = 10
 		elsif player == 2
 			@x_pos = 1520
+			@x_start = 1520
 			@derp = 980
 		end
 		@player = player
@@ -55,6 +58,12 @@ class Player
 		if @x_vel > -30
 			@x_vel += @acceleration
 		end
+	end
+	def reset
+		@y_pos = @y_start
+		@x_pos = @x_start
+		@y_vel = 0
+		@x_vel = 0
 	end
 
 	

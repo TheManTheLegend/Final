@@ -7,7 +7,9 @@ class Puck
 		@height = 1080
 		@width = 1920
 		@x_pos = 960 - 25
+		@x_start = 960 - 25
 		@y_pos = 540 - 30
+		@y_start = 540 - 30
 		@x_vel = 0
 		@y_vel = 0
 		@x_prop = 0
@@ -43,6 +45,12 @@ class Puck
 	end
 	def puck_y
 		@y_pos
+	end
+	def reset
+		@y_pos = @y_start
+		@x_pos = @x_start
+		@y_vel = 0
+		@x_vel = 0
 	end
 
 
