@@ -9,13 +9,15 @@ require_relative "goal"
 class GameWindow < Gosu::Window
 	def initialize 
 		super 1920, 1080
+		self.caption = "Final"
 		@player1 = Player.new("white",1)
 		@player2 = Player.new("black",2)
 		@puck = Puck.new
 		@goal1 = Goal.new(0, 0)
 		@goal2 = Goal.new(1920, 180)
 		@font = Gosu::Font.new(80)
-		@scored = 0
+		@scored = false
+		@scoredp = 0
 		
 		@background_image = Gosu::Image.new("gameboard.png", :tileable => true)
 
@@ -42,13 +44,14 @@ class GameWindow < Gosu::Window
 		@puck.move
 		if @puck.puck_x < 50 && @puck.puck_y < 640 && @puck.puck_y > 440
 			@player2.score
-			@scored = 
+			@scored = true
+			@scoredp = 2
 			
 			reset
 		elsif @puck.puck_x > 1820 && @puck.puck_y < 640 && @puck.puck_y > 440
 			@player1.score
-			@scored = 1
-			
+			@scored = true
+			@scoredp = 1
 			reset
 		end
 		
@@ -87,12 +90,12 @@ class GameWindow < Gosu::Window
 		@puck.draw
 		@goal1.draw
 		@goal2.draw
-		if @scored == 1
-			@font.draw("Player 1 has scored!", 200, 30, 6, 1, 1, 0xff_0000ff)
-			sleep(1)
-			start
-			@scored = 0
-		end
+		# if @scored == true
+		# 	@font.draw("Player #{@scoredp} has scored!", 860, 540, 6, 1, 1, 0xff_0000ff)
+		# 	# sleep(1)
+		# 	# start
+		# 	@scored = false
+		# end
 		# if @scored == 2
 		# 	@font.draw("Player #{@scored} has scored!", 200, 30, 6, 1, 1, 0xff_0000ff)
 		# 	sleep(1)

@@ -23,10 +23,11 @@ class Puck
 	end
 
 	def colliding?(x, y)
-		if (@x_pos - x).abs > 75 || (@y_pos - y).abs > 75
+		proportion(x, y)
+		
+		if (@x_pos - x).abs > 75 && (@y_pos - y).abs > 75
 			@pulsed = 1
 		end
-
 
 
 		if (@x_pos - x).abs < 75 && (@y_pos - y).abs < 75
@@ -105,7 +106,7 @@ class Puck
 		@image.draw(@x_pos, @y_pos, 3)
 	end
 	def pulse(x, y)
-		if (@x_pos - x).abs < 75 || (@y_pos - y).abs < 75
+		if (@x_pos - x).abs - 50 < 50 || (@y_pos - y).abs - 50 < 50
 			proportion(x, y)
 			@pulsed = (0-1)
 
