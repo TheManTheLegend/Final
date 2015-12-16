@@ -75,6 +75,9 @@ class Player
 	def y
 		@y_pos
 	end
+	def myscore
+		@score
+	end
 
 	def move
 		@x_pos += @x_vel

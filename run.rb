@@ -39,6 +39,14 @@ class GameWindow < Gosu::Window
 		pulse(@player1.x, @player1.y) if Gosu::button_down? Gosu::KbC
 		@player1.move
 
+		if @player1.myscore > 9
+			close
+			print "Player 1 Wins!!!!!!!!!!!!!!!!"
+		elsif @player2.myscore > 9
+			close
+			print "Player 2 Wins!!!!!!!!!!!!!!!!"
+		end
+
 		colliding?(@player1.x, @player1.y)
 		colliding?(@player2.x, @player2.y)
 		@puck.move
