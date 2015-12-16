@@ -29,7 +29,7 @@ class GameWindow < Gosu::Window
 		@player2.right if Gosu::button_down? Gosu::KbRight
 		@player2.up if Gosu::button_down? Gosu::KbUp
 		@player2.down if Gosu::button_down? Gosu::KbDown
-		pulse(@player2.x, @player2.y) if Gosu::button_down? Gosu::KbNumpad1
+		pulse(@player2.x, @player2.y) if Gosu::button_down? Gosu::KbNumpad0
 		@player2.move
 
 		@player1.left if Gosu::button_down? Gosu::KbA
